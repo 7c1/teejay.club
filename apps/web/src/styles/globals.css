@@ -37,10 +37,6 @@ body {
   @apply text-xl font-bold p-0;
 }
 
-.content img {
-  @apply rounded;
-}
-
 .content ul {
   @apply list-disc pl-4;
 }
