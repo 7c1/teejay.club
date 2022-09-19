@@ -33,6 +33,7 @@ export const NewCommentForm = observer<Props>((props) => {
           <div className="absolute -left-4 w-3 top-6 h-[1px] bg-gray-300" />
           <button className="absolute inset-y-0 -left-6 w-4 flex justify-center z-10">
             <div className="w-[1px] h-full bg-gray-300"></div>
+            <div className="top-6 w-[1px] bg-white absolute z-10 bottom-0" />
           </button>
         </div>
       )}
