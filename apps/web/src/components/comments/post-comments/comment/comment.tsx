@@ -23,6 +23,7 @@ type Props = {
   comment: TComment;
   level: number;
   replyTo?: number;
+  last?: boolean;
   onReplyToChange: (replyTo?: number) => void;
 };
 
@@ -30,6 +31,7 @@ export const Comment: FC<Props> = ({
   comment,
   level = 1,
   replyTo,
+  last = false,
   onReplyToChange,
 }) => {
   const [isQueryEnabled, setIsQueryEnabled] = useState(!!comment.children);
@@ -78,6 +80,9 @@ export const Comment: FC<Props> = ({
     >
       {level > 1 && (
         <div className="absolute -left-4 w-3 top-6 h-[1px] bg-gray-300" />
+      )}
+      {last && level > 1 && (
+        <div className="top-6 w-[1px] bg-white absolute -left-4 z-10 bottom-0" />
       )}
       <div
         id={`comments/${comment.id}`}
