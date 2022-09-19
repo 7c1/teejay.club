@@ -14,6 +14,7 @@ type Props = {
 export const CommentList = observer<Props>(
   ({ comments, level = 1, replyTo, onReplyToChange }) => {
     const [isMinimazed, setIsMinimazed] = useState(false);
+    const lastCommentIndex = comments.length - 1;
 
     return (
       <div className="relative">
@@ -37,13 +38,14 @@ export const CommentList = observer<Props>(
             </button>
           </div>
         ) : (
-          comments.map((comment) => (
+          comments.map((comment, index) => (
             <Comment
               key={comment.id}
               comment={comment}
               level={level}
               replyTo={replyTo}
               onReplyToChange={onReplyToChange}
+              last={index === lastCommentIndex}
             />
           ))
         )}
