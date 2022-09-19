@@ -1,3 +1,5 @@
+import { TRPCError } from "@trpc/server";
+
 import { voteCommentInput } from "../inputs";
 
 import { blockGuard } from "@/guards";
@@ -16,12 +18,20 @@ export const vote = t.procedure
       select: {
         id: true,
         score: true,
+        authorId: true,
         votes: {
           where: { commentId, userId },
           select: commentVotes.select(),
         },
       },
     });
+    
+    if (post.authorId === userId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Нельзя голосовать за свои комментарий.",
+      });
+    }
 
     // CREATE
     // 42 -> +1 -> 43
