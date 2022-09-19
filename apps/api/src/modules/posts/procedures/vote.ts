@@ -1,3 +1,5 @@
+import { TRPCError } from "@trpc/server";
+
 import { votePostInput } from "../inputs";
 
 import { blockGuard } from "@/guards";
@@ -16,12 +18,20 @@ export const vote = t.procedure
       select: {
         id: true,
         score: true,
+        authorId: true,
         votes: {
           where: { postId, userId },
           select: postVotes.select(),
         },
       },
     });
+    
+    if (post.authorId === userId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Нельзя голосовать за свой пост.",
+      });
+    }    
 
     // CREATE
     // 42 -> +1 -> 43
