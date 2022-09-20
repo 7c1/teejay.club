@@ -28,9 +28,12 @@ export const Renderer = memo<Props>(({ isSummary = false, children }) => {
 
   if (isSummary) {
     return (
-      <div className="content">
-        {renderBlock(children.blocks[0], isSummary)}
-      </div>
+      <>
+        <div className="content">
+          {renderBlock(children.blocks[0], isSummary)}
+        </div>
+        {children.blocks.length > 1 && <div className="text-blue-500 mt-4 text-sm">Читать дальше</div>}
+      </>
     );
   }
 
